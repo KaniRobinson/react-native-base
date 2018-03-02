@@ -1,0 +1,1 @@
+export const GET_CURRENT_ROUTE = 'get_current_route';
