@@ -1,92 +1,52 @@
 import React, { Component } from 'react';
-import { ScrollView, View } from 'react-native';
-import { Card, Avatar, Badge, TouchableNative, Button, ButtonGroup, Text, Image, CheckBox, Divider } from 'react-native-elements';
+import { ScrollView } from 'react-native';
+import { Card, ButtonGroup } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import { getCurrentRoute } from '../actions/AppActions';
+// import { getCurrentRoute } from '../actions/AppActions';
+
+import style from '../styles';
 
 class Index extends Component {
 
-    constructor () {
-        super();
-
-        this.state = {
-            selectedIndex: 2
-        };
-
-        this._updateIndex = this._updateIndex.bind(this);
-        this._getCurrentRoute = this._getCurrentRoute.bind(this);
-        this._emptyCurrentRouteField = this._emptyCurrentRouteField.bind(this);
+    constructor (props) {
+        super(props);
+        this.state = {};
+        this.state.buttons = [ 'Login', 'Register' ];
+        this._doButtonAction = this._doButtonAction.bind(this);
+        this._redirectToLogin = this._redirectToLogin.bind(this);
+        this._redirectToRegister = this._redirectToRegister.bind(this);
     }
 
-    _updateIndex (selectedIndex) {
-        this.setState({
-            selectedIndex
-        });
+    _doButtonAction (selectedIndex) {
+        switch(selectedIndex) {
+            case 0:
+                this._redirectToLogin();
+                break;
+            case 1:
+                this._redirectToRegister();
+                break;
+        }
     }
 
-    _getCurrentRoute() {
-        let currentRoute = this.props.name;
-        this.props.getCurrentRoute( currentRoute );
+    _redirectToLogin() {
+        Actions.login();
     }
 
-    _emptyCurrentRouteField() {
-        this.props.getCurrentRoute('');
+    _redirectToRegister() {
+        Actions.register();
     }
 
     render() {
-        const buttons = ['Hello', 'World', 'Buttons'];
-        const { selectedIndex } = this.state;
-
         return (
             <ScrollView>
-                <Card title='Avatars'>
-                    <Avatar small rounded source={{uri: "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg"}} onPress={() => console.log("Works!")} activeOpacity={0.7} />
-                    <Avatar medium source={{uri: "https://s3.amazonaws.com/uifaces/faces/twitter/kfriedson/128.jpg"}} onPress={() => console.log("Works!")} activeOpacity={0.7} />
-                    <Avatar large source={{uri: "https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg"}} onPress={() => console.log("Works!")} activeOpacity={0.7} />
-                    <Avatar xlarge rounded source={{uri: "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg"}} onPress={() => console.log("Works!")} activeOpacity={0.7} />
+                <Card title='Team 8 Digital React Native Boilerplate'>
+                    <ButtonGroup onPress={ this._doButtonAction } buttons={ this.state.buttons } />
                 </Card>
-
-                <Card title='Avatar with initials'>
-                    <Avatar small rounded title="MT" onPress={() => console.log("Works!")} activeOpacity={0.7} />
-                    <Avatar medium title="BP" onPress={() => console.log("Works!")} activeOpacity={0.7} />
-                    <Avatar large title="LW" onPress={() => console.log("Works!")} activeOpacity={0.7} />
-                    <Avatar xlarge rounded title="CR" onPress={() => console.log("Works!")} activeOpacity={0.7} />
-                </Card>
-
-                <Card title='Badged'>
-                    <Badge value={3} textStyle={{ color: 'orange' }} />
-
-                    <Badge containerStyle={{ backgroundColor: 'violet'}}>
-                        <Text>User 1</Text>
-                    </Badge>
-                    <Badge onPress={() => {console.log('pressed')}} value="5" />
-                    <Badge component={TouchableNative} value={10} />
-                </Card>
-
-                <Card title='Buttons'>
-                    <Button title='BUTTON' />
-                    <ButtonGroup onPress={ this.updateIndex } selectedIndex={ selectedIndex } buttons={ buttons } />
-                </Card>
-
-                <Card image={require('../images/cardImage.jpg')}>
-                    <Text style={{marginBottom: 10}}>The idea with React Native Elements is more about component structure than actual design.</Text>
-                    <Button backgroundColor='#03A9F4' fontFamily='Lato' buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}} title='VIEW NOW' />
-                </Card>
-
-                <Divider style={{ backgroundColor: 'blue' }} />
-
             </ScrollView>
         );
     }
 }
 
-const mapStateToProps = state => (
-    {
-        currentRoute: state.AppReducer.currentRoute
-    }
-)
-
-export default connect(mapStateToProps, {
-    getCurrentRoute
-})(Index);
+const mapStateToProps = state => ({})
+export default connect(mapStateToProps, {})(Index);
