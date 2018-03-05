@@ -1,36 +1,52 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, Button, TouchableHighlight, Image, ActivityIndicator } from 'react-native';
+import { ScrollView } from 'react-native';
+import { Card, ButtonGroup } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import { getCurrentRoute } from '../actions/AppActions';
+// import { getCurrentRoute } from '../actions/AppActions';
+
+import style from '../styles';
 
 class Index extends Component {
 
-    _getCurrentRoute() {
-        let currentRoute = this.props.name;
-        this.props.getCurrentRoute( currentRoute );
+    constructor (props) {
+        super(props);
+        this.state = {};
+        this.state.buttons = [ 'Login', 'Register' ];
+        this._doButtonAction = this._doButtonAction.bind(this);
+        this._redirectToLogin = this._redirectToLogin.bind(this);
+        this._redirectToRegister = this._redirectToRegister.bind(this);
     }
 
-    _emptyCurrentRouteField() {
-        this.props.getCurrentRoute('');
+    _doButtonAction (selectedIndex) {
+        switch(selectedIndex) {
+            case 0:
+                this._redirectToLogin();
+                break;
+            case 1:
+                this._redirectToRegister();
+                break;
+        }
+    }
+
+    _redirectToLogin() {
+        Actions.login();
+    }
+
+    _redirectToRegister() {
+        Actions.register();
     }
 
     render() {
         return (
-            <View>
-                <Text onPress={ () => this._emptyCurrentRouteField() }>{ this.props.currentRoute }</Text>
-                <Button color='#178886' title='Get Current Route' onPress={ () => this._getCurrentRoute() } /> 
-            </View>
+            <ScrollView>
+                <Card title='Team 8 Digital React Native Boilerplate'>
+                    <ButtonGroup onPress={ this._doButtonAction } buttons={ this.state.buttons } />
+                </Card>
+            </ScrollView>
         );
     }
 }
 
-const mapStateToProps = state => (
-    {
-        currentRoute: state.AppReducer.currentRoute
-    }
-)
-
-export default connect(mapStateToProps, {
-    getCurrentRoute
-})(Index);
+const mapStateToProps = state => ({})
+export default connect(mapStateToProps, {})(Index);
