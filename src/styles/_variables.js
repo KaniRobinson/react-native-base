@@ -1,5 +1,8 @@
 
 
 export default Variable = {
-    primaryColor: '#FFF'
+    header: {
+        backgroundColor: '#000',
+        textColor: '#FFF'
+    }
 };

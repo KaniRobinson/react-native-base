@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ScrollView } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { Card, Input } from 'react-native-elements';
+import { Actions } from 'react-native-router-flux';
+import { Card, ButtonGroup } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { userLogin } from '../actions/AuthActions';
 
@@ -11,7 +11,25 @@ class Login extends Component {
         this.state = {};
         this.state.email = '';
         this.state.password = '';
+        this.state.buttons = [ 'Login', 'Cancel' ];
+        this._loginButtonActions = this._loginButtonActions.bind(this);
         this._userLogin = this._userLogin.bind(this);
+        this._redirectHome = this._redirectHome.bind(this);
+    }
+
+    _loginButtonActions(selectedIndex) {
+        switch(selectedIndex) {
+            case 0:
+                this._userLogin();
+                break;
+            case 1:
+                this._redirectHome();
+                break;
+        }
+    }
+
+    _redirectHome() {
+        Actions.pop();
     }
 
     _userLogin() {
@@ -23,12 +41,18 @@ class Login extends Component {
     render() {
         return (
             <ScrollView>
-                <Card title='Login'></Card>
+                <Card title='Login'>
+                    <ButtonGroup onPress={ this._loginButtonActions } buttons={ this.state.buttons } />
+                </Card>
             </ScrollView>
         );
     }
 }
 
-const mapStateToProps = state => ({})
+const mapStateToProps = state => ({
+    token: state.AuthReducer.token
+})
 
-export default connect(mapStateToProps, {})(Login);
+export default connect(mapStateToProps, { 
+    userLogin
+})(Login);
