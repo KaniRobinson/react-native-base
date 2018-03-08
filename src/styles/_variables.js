@@ -5,4 +5,4 @@ export default Variable = {
         backgroundColor: '#000',
         textColor: '#FFF'
     }
-};
+}

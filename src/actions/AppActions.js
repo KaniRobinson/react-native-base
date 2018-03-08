@@ -1,4 +1,4 @@
-import { GET_CURRENT_ROUTE } from './types';
+import { GET_CURRENT_ROUTE } from './types'
 
 export const getCurrentRoute = (currentRoute) => {
     return {
