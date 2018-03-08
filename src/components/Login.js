@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, TextInput } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { Card, ButtonGroup } from 'react-native-elements';
+import { Card, ButtonGroup, FormLabel, FormInput, Text } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { userLogin } from '../actions/AuthActions';
 
@@ -35,13 +35,17 @@ class Login extends Component {
     _userLogin() {
         let email = this.state.email;
         let password = this.state.password;
-        this.props.userLogin(email, password);
+        this.props.userLogin(email, password)
     }
 
     render() {
         return (
             <ScrollView>
                 <Card title='Login'>
+                    <FormLabel>Email/username:</FormLabel>
+                    <FormInput onChangeText={ (email) => this.setState({ email }) } />
+                    <FormLabel>Password:</FormLabel>
+                    <FormInput secureTextEntry={ true } onChangeText={ (password) => this.setState({ password }) } />
                     <ButtonGroup onPress={ this._loginButtonActions } buttons={ this.state.buttons } />
                 </Card>
             </ScrollView>
