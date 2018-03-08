@@ -6,6 +6,8 @@ import {
     USER_LOGOUT_ERROR,
     USER_LOGOUT_SUCCESS,
     USER_REGISTER,
+    USER_REGISTER_ERROR,
+    USER_REGISTER_SUCCESS,
     USER_SHOULD_BE_HERE
 } from './types'
 import { Actions } from 'react-native-router-flux'
@@ -131,26 +133,56 @@ export const userLogoutError = (errors, dispatch) => {
     dispatch ({ type: USER_LOGOUT_ERROR, payload: errors })
 }
 
-export const userRegister = (username, first_name, last_name, email, nhs_number, phone_number, password, confirm_password) => {
-    return {
-        type: USER_REGISTER,
-        payload: {
-            username, 
-            first_name, 
-            last_name, 
-            email, 
-            nhs_number, 
-            phone_number, 
-            password, 
-            confirm_password
-        }
+/**
+ * Register Method
+ * 
+ * @param {string} username 
+ * @param {string} first_name 
+ * @param {string} last_name 
+ * @param {string} email 
+ * @param {string} cellphone 
+ * @param {string} password 
+ * @param {string} cpassword 
+ */
+export const userRegister = (username, first_name, last_name, email, cellphone, password, cpassword) => {
+    let storage = new Method.Storage()
+
+    return dispatch => {
+        dispatch({
+            type: USER_REGISTER
+        })
+
+        new Authentication.Register(username, first_name, last_name, email, cellphone, password, cpassword)
+        .then(response => {
+            if(response.data.error == 0) {
+                storage.set('@User:isAuthenticated', true)
+                .then(value => userRegisterSuccess(dispatch))
+            } else {
+                if(response.data.message == 'failure') {
+                    userRegisterError(response.data.data, dispatch)
+                }
+            }
+        })
+        .catch(error => {
+            userLoginError('Unexpected Error. Please try again later.', dispatch)
+        })
     }
 }
 
+/**
+ * Success Registeer Dispatch
+ * @param {any} dispatch 
+ */
+export const userRegisterSuccess = (dispatch) => {
+    dispatch ({ type: USER_REGISTER_SUCCESS })
+    Actions.dashboard()
+}
 
-export const getCurrentRoute = (currentRoute) => {
-    return {
-        type: GET_CURRENT_ROUTE,
-        payload: currentRoute
-    }
+/**
+ * Error in Register Dispatch
+ * @param {any} errors 
+ * @param {any} dispatch 
+ */
+export const userRegisterError = (errors, dispatch) => {
+    dispatch ({ type: USER_REGISTER_ERROR, payload: errors })
 }
