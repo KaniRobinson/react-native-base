@@ -23,8 +23,10 @@ class Index extends Component {
         switch(selectedIndex) {
             case 0:
                 this._redirectToLogin()
+                break;
             case 1:
                 this._redirectToRegister()
+                break;
         }
     }
 

@@ -22,8 +22,10 @@ class Login extends Component {
         switch(selectedIndex) {
             case 0:
                 this._userLogin()
+                break;
             case 1:
                 this._redirectHome()
+                break;
         }
     }
 

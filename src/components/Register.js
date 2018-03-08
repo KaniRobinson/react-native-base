@@ -44,8 +44,10 @@ class Register extends Component {
         switch(selectedIndex) {
             case 0:
                 this._userRegister()
+                break;
             case 1:
                 this._redirectHome()
+                break;
         }
     }
 
