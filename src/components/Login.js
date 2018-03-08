@@ -74,7 +74,7 @@ class Login extends Component {
         return (
             <ScrollView>
                 <Card title='Login'>
-                    <FormLabel>Email/username:</FormLabel>
+                    <FormLabel>Email/Username:</FormLabel>
                     <FormInput onChangeText={ (email) => this.setState({ email }) } />
                     <EmailValidation></EmailValidation>
                     <FormLabel>Password:</FormLabel>
