@@ -3,7 +3,7 @@ import {
     USER_REGISTER,
     USER_LOGIN_SUCCESS,
     USER_LOGIN_ERROR
-} from '../actions/types';
+} from '../actions/types'
 
 const INITIAL_STATE = {
     loginError: ''
@@ -21,6 +21,6 @@ export default (state = INITIAL_STATE, action) => {
         case USER_REGISTER:
             return { ...state, user_data: action.payload }
        default:
-            return state;
+            return state
     }
 }

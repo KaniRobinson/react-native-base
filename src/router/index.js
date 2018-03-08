@@ -16,7 +16,7 @@ const scenes = Actions.create(
         <Scene key="register" component={ Register } duration={ 0 } authRequired={ false }  />
         <Scene key="dashboard" component={ Dashboard } duration={ 0 } panHandlers={ null } authRequired={ true }  />
     </Scene>
-);
+)
 
 export default props => (
     <Router scenes={ scenes } />

@@ -3,7 +3,7 @@ import { ScrollView, View, TextInput } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import { Card, ButtonGroup, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
 import { connect } from 'react-redux'
-import { userLogin } from '../actions/AuthActions'
+import { userLogin, userShouldBeHere } from '../actions/AuthActions'
 
 class Login extends Component {
     constructor(props) {
@@ -15,16 +15,15 @@ class Login extends Component {
         this._loginButtonActions = this._loginButtonActions.bind(this)
         this._userLogin = this._userLogin.bind(this)
         this._redirectHome = this._redirectHome.bind(this)
+        this.props.userShouldBeHere(this.props.authRequired)
     }
 
     _loginButtonActions(selectedIndex) {
         switch(selectedIndex) {
             case 0:
                 this._userLogin()
-                break;
             case 1:
                 this._redirectHome()
-                break;
         }
     }
 
@@ -82,7 +81,7 @@ class Login extends Component {
                     <ButtonGroup onPress={ this._loginButtonActions } buttons={ this.state.buttons } />
                 </Card>
             </ScrollView>
-        );
+        )
     }
 }
 
@@ -91,5 +90,6 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps, { 
-    userLogin
+    userLogin,
+    userShouldBeHere
 })(Login)

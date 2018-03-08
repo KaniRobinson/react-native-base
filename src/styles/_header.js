@@ -1,5 +1,5 @@
 
-import Variable from './_variables';
+import Variable from './_variables'
 
 export default Header = {
     BackgroundColor: Variable.header.backgroundColor,
@@ -23,4 +23,4 @@ export default Header = {
         } 
     },
     rightComponent: {}
-};
+}

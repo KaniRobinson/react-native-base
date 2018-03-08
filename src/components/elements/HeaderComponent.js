@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { Header } from 'react-native-elements';
+import React, { Component } from 'react'
+import { Header } from 'react-native-elements'
 
-import header from '../../styles/_header';
+import header from '../../styles/_header'
 
 export default class HeaderComponent extends Component {
     constructor(props) {
-        super(props);
+        super(props)
     }
 
     render() {
