@@ -54,7 +54,7 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => ({
-    token: state.AuthReducer.token
+    login_states: state.AuthReducer.login_states
 })
 
 export default connect(mapStateToProps, { 
